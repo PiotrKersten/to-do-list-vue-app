@@ -1,27 +1,34 @@
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import NewTask from '@/components/NewTask.vue'
 import TaskList from '@/components/TaskList.vue'
 import TaskCompleted from '@/components/TaskCompleted.vue'
 
-const tasks = reactive<{ title: string; completed: boolean }[]>([])
+type Task = {
+  title: string
+  completed: boolean
+}
+
+const activeTasks = reactive<Task[]>([])
+const completedTasks = reactive<Task[]>([])
 
 const addTask = (title: string) => {
-  tasks.push({ title, completed: false })
+  activeTasks.push({ title, completed: false })
 }
 
 const toggleTaskCompletion = (index: number) => {
-  tasks[index].completed = !tasks[index].completed
+  const [tasks]: Task[] = activeTasks.splice(index, 1)
+  completedTasks.push(tasks)
 }
 
-const removeTask = (index: number) => {
-  tasks.splice(index, 1)
+const removeTask = (index: number, isActive: boolean) => {
+  if (isActive) {
+    activeTasks.splice(index, 1)
+  } else {
+    completedTasks.splice(index, 1)
+  }
 }
-
-const completedTasks = computed(() => tasks.filter((task) => task.completed))
-const activeTasks = computed(() => tasks.filter((task) => !task.completed))
 </script>
-
 <template>
   <div class="flex">
     <div class="w-1/3 p-4">
@@ -31,13 +38,16 @@ const activeTasks = computed(() => tasks.filter((task) => !task.completed))
     <div class="w-1/3 p-4">
       <TaskList
         :tasks="activeTasks"
-        @toggle-task="toggleTaskCompletion"
-        @delete-task="removeTask"
+        @toggle-task="(index) => toggleTaskCompletion(index)"
+        @delete-task="(index) => removeTask(index, true)"
       />
     </div>
 
     <div class="w-1/3 p-4">
-      <TaskCompleted :completedTasks="completedTasks" @delete-completed-task="removeTask" />
+      <TaskCompleted
+        :completedTasks="completedTasks"
+        @delete-completed-task="(index) => removeTask(index, false)"
+      />
     </div>
   </div>
 </template>
