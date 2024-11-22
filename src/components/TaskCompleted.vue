@@ -7,11 +7,16 @@ defineProps<{
 }>()
 
 const toast = useToast()
-const emit = defineEmits(['delete-completed-task'])
+const emit = defineEmits(['delete-completed-task', 'restore-task'])
 
 const deleteCompletedTask = (index: number) => {
   emit('delete-completed-task', index)
   toast.warning('Completed task successfully deleted')
+}
+
+const restoreCompletedTask = (index: number) => {
+  emit('restore-task', index)
+  toast.success('Task restored')
 }
 </script>
 
@@ -25,9 +30,20 @@ const deleteCompletedTask = (index: number) => {
         class="bg-green-200 rounded-lg p-4 mb-2 flex justify-between items-center"
       >
         <span>{{ task.title }}</span>
-        <button @click="deleteCompletedTask(index)" class="bg-red-500 text-white rounded px-3 py-1">
-          Delete
-        </button>
+        <div>
+          <button
+            @click="restoreCompletedTask(index)"
+            class="bg-orange-500 text-white rounded px-3 py-1"
+          >
+            Restore
+          </button>
+          <button
+            @click="deleteCompletedTask(index)"
+            class="bg-red-500 text-white rounded px-3 py-1 ml-2"
+          >
+            Delete
+          </button>
+        </div>
       </li>
     </ul>
   </div>

@@ -16,9 +16,14 @@ const addTask = (title: string) => {
   activeTasks.push({ title, completed: false })
 }
 
-const toggleTaskCompletion = (index: number) => {
-  const [tasks]: Task[] = activeTasks.splice(index, 1)
-  completedTasks.push(tasks)
+const toggleTaskCompletion = (index: number, isActive: boolean) => {
+  if (isActive) {
+    const [tasks]: Task[] = activeTasks.splice(index, 1)
+    completedTasks.push(tasks)
+  } else {
+    const [tasks]: Task[] = completedTasks.splice(index, 1)
+    activeTasks.push(tasks)
+  }
 }
 
 const removeTask = (index: number, isActive: boolean) => {
@@ -38,7 +43,7 @@ const removeTask = (index: number, isActive: boolean) => {
     <div class="w-1/3 p-4">
       <TaskList
         :tasks="activeTasks"
-        @toggle-task="(index) => toggleTaskCompletion(index)"
+        @toggle-task="(index) => toggleTaskCompletion(index, true)"
         @delete-task="(index) => removeTask(index, true)"
       />
     </div>
@@ -46,6 +51,7 @@ const removeTask = (index: number, isActive: boolean) => {
     <div class="w-1/3 p-4">
       <TaskCompleted
         :completedTasks="completedTasks"
+        @restore-task="(index) => toggleTaskCompletion(index, false)"
         @delete-completed-task="(index) => removeTask(index, false)"
       />
     </div>
