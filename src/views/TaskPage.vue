@@ -2,6 +2,7 @@
 import { reactive, computed } from 'vue'
 import NewTask from '@/components/NewTask.vue'
 import TaskList from '@/components/TaskList.vue'
+import TaskCompleted from '@/components/TaskCompleted.vue'
 
 const tasks = reactive<{ title: string; completed: boolean }[]>([])
 
@@ -33,6 +34,10 @@ const activeTasks = computed(() => tasks.filter((task) => !task.completed))
         @toggle-task="toggleTaskCompletion"
         @delete-task="removeTask"
       />
+    </div>
+
+    <div class="w-1/3 p-4">
+      <TaskCompleted :completedTasks="completedTasks" @delete-completed-task="removeTask" />
     </div>
   </div>
 </template>
