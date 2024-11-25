@@ -12,11 +12,11 @@ type Task = {
 const activeTasks = reactive<Task[]>([])
 const completedTasks = reactive<Task[]>([])
 
-const addTask = (title: string) => {
+const addTask = (title: string): void => {
   activeTasks.push({ title, completed: false })
 }
 
-const toggleTaskCompletion = (index: number, isActive: boolean) => {
+const toggleTaskCompletion = (index: number, isActive: boolean): void => {
   if (isActive) {
     const [tasks]: Task[] = activeTasks.splice(index, 1)
     completedTasks.push(tasks)
@@ -26,7 +26,7 @@ const toggleTaskCompletion = (index: number, isActive: boolean) => {
   }
 }
 
-const removeTask = (index: number, isActive: boolean) => {
+const removeTask = (index: number, isActive: boolean): void => {
   if (isActive) {
     activeTasks.splice(index, 1)
   } else {

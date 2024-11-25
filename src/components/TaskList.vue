@@ -9,12 +9,12 @@ defineProps<{
 const toast = useToast()
 const emit = defineEmits(['toggle-task', 'delete-task'])
 
-const toggleTaskCompletion = (index: number) => {
+const toggleTaskCompletion = (index: number): void => {
   emit('toggle-task', index)
   toast.info('Task status updated')
 }
 
-const deleteTask = (index: number) => {
+const deleteTask = (index: number): void => {
   emit('delete-task', index)
   toast.warning('Task successfully deleted')
 }

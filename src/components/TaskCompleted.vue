@@ -9,12 +9,12 @@ defineProps<{
 const toast = useToast()
 const emit = defineEmits(['delete-completed-task', 'restore-task'])
 
-const deleteCompletedTask = (index: number) => {
+const deleteCompletedTask = (index: number): void => {
   emit('delete-completed-task', index)
   toast.warning('Completed task successfully deleted')
 }
 
-const restoreCompletedTask = (index: number) => {
+const restoreCompletedTask = (index: number): void => {
   emit('restore-task', index)
   toast.success('Task restored')
 }

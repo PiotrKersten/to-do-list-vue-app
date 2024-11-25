@@ -9,7 +9,7 @@ import 'vue-toastification/dist/index.css'
 const app = createApp(App)
 
 app.use(Toast, {
-  position: POSITION.BOTTOM_RIGHT, // Ustawienie pozycji toasta na lewą górę
+  position: POSITION.BOTTOM_RIGHT,
   timeout: 1500,
   newestOnTop: false,
 })

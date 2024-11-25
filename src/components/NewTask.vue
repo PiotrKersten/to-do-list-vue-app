@@ -7,7 +7,7 @@ const newTask = ref('')
 const toast = useToast()
 const emit = defineEmits(['task-added'])
 
-const addTask = () => {
+const addTask = (): void => {
   if (newTask.value.trim()) {
     emit('task-added', newTask.value.trim())
     newTask.value = ''
@@ -34,7 +34,7 @@ const addTask = () => {
       />
     </div>
 
-    <p class="mb-4 text-gray-700">Allows user to create/delete new tasks and remove completed</p>
+    <p class="mb-4 text-gray-700">Enables users to create, delete, restore, and manage tasks</p>
     <input v-model="newTask" placeholder="Add a new task" class="border p-2 rounded" />
     <button @click="addTask" class="bg-blue-500 text-white rounded p-2 ml-2">Add</button>
   </div>
