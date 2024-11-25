@@ -1,3 +1,23 @@
-# to-do-list
+### Description
 
-To do list application using vue+ts
+```sh
+Simple Task Manager using vue3
+```
+
+### Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
